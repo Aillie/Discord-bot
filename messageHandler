@@ -1,0 +1,91 @@
+package discordbot.Hank;
+
+import java.io.File;
+
+import net.dv8tion.jda.api.events.message.*;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
+import java.util.Random;
+
+public class messageHandler extends ListenerAdapter {
+	
+	@Override
+	public void onMessageReceived(MessageReceivedEvent event)
+	{
+		if(event.getAuthor().isBot())
+		{
+			return;
+		}
+		else
+		{
+			if(event.getMessage().getContentDisplay().equalsIgnoreCase("?help"))
+			{
+				event.getChannel().sendMessageFormat("!Lär mig skånska: Skriver ut ett skånskt ord och den svenska översättningen\n"
+						+ "!schema: Anger länk till Tacish20s schema\n!spam: skickar 10 meddelanden\n"
+						+ "!memes: Skickar memes").queue();
+			}
+			else if(event.getMessage().getContentDisplay().equalsIgnoreCase("!lär mig skånska"))
+			{
+				String msg = skånskaOrd();
+				event.getChannel().sendMessage(msg).queue();
+			}
+			else if(event.getMessage().getContentDisplay().equalsIgnoreCase("!schema"))
+			{
+				event.getChannel().sendMessage("https://cloud.timeedit.net/hh/web/schema/ri1X5001Z2104vQQ0wZ6767Y64yY5Y37QQ.html").queue();
+			}
+			else if(event.getMessage().getContentDisplay().equalsIgnoreCase("!spam"))
+			{
+				for(int i = 0; i < 10; i++)
+				{
+					event.getChannel().sendMessage("haj").queue();
+				}
+			}
+			else if(event.getMessage().getContentDisplay().equalsIgnoreCase("!memes"))
+			{
+				File f = memeLoader();
+				event.getChannel().sendFile(f).queue();
+			}
+		}
+	}
+	
+	
+	public String skånskaOrd()
+	{
+		String[] so = new String[] {"Rälig = Riktigt äckligt, så äckligt att du vill kräkas.", 
+				"Nimmt = Lätt/smidigt", 
+				"Klyddig = Besvärlig (exempel: klydda ente = Krångla inte till det)",
+				"Ålahue = Idiot",
+				"Balle = Skinkhalva/Rumpa",
+				"Fobbeck/Fubbick = Idiot",
+				"Håssa/Hossor = Strumpa/strumpor",
+				"Glöttig/Glyttig = Löjlig",
+				"Blannevann = Groggvirke",
+				"Mög = Skit",
+				"Tradig = tråkig",
+				"Rullebör = Skottkärra",
+				"Ente = Inte",
+				"Tös/Tösabid = Flicka",
+				"Påg = Pojke",
+				"Flabb = Mun",
+				"Nock = Nog",
+				"Hotta/Hutta = Kasta",
+				"Redig = Ordentlig",
+				"Läbbit = Läskigt",
+				"Ving = Sne",
+				"Fälleben = Krokben",
+				"Glötting = Barnslig",
+				"Asa = Dra eller släpa",
+				};
+		Random r = new Random();
+		return so[r.nextInt(so.length)];
+	}
+	
+	public File memeLoader()
+	{
+		Random random = new Random();
+		File dirPath = new File("C:\\Users\\marti\\Hank\\Hank\\target\\classes\\discordbot\\Hank\\memes");
+		String[] Files = dirPath.list();
+		File f = new File(dirPath.getPath() + "\\" + Files[random.nextInt(Files.length)]);
+		return f;
+	}
+}
