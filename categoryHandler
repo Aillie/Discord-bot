@@ -1,0 +1,22 @@
+package discordbot.Hank;
+
+import net.dv8tion.jda.api.events.channel.category.CategoryCreateEvent;
+import net.dv8tion.jda.api.events.channel.category.update.CategoryUpdateNameEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
+public class categoryHandler extends ListenerAdapter {
+	
+	@Override
+	public void onCategoryCreate(CategoryCreateEvent event)
+	{
+		event.getCategory().createTextChannel("Name here").complete();
+		event.getCategory().createVoiceChannel("Name here").complete();
+		
+	}
+	
+	@Override
+	public void onCategoryUpdateName(CategoryUpdateNameEvent event)
+	{
+		event.getGuild().getDefaultChannel().sendMessage("Category " + event.getOldName() + " was changed to " + event.getNewName()).queue();
+	}
+}
