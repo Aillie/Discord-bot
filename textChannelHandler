@@ -1,0 +1,18 @@
+package discordbot.Hank;
+
+import net.dv8tion.jda.api.events.channel.text.TextChannelCreateEvent;
+import net.dv8tion.jda.api.events.channel.text.update.TextChannelUpdateNameEvent;
+import net.dv8tion.jda.api.hooks.ListenerAdapter;
+
+public class textChannelHandler extends ListenerAdapter {
+	
+	public void onTextChannelCreate(TextChannelCreateEvent event)
+	{
+		event.getGuild().getDefaultChannel().sendMessage("A new Text Channel was created: " + event.getChannel().getName()).queue();
+	}
+	
+	public void onTextChannelUpdateName(TextChannelUpdateNameEvent event)
+	{
+		event.getGuild().getDefaultChannel().sendMessage("Text Channel  " + event.getOldName() + " was changed to " + event.getNewName()).queue();
+	}
+}
