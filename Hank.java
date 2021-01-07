@@ -14,7 +14,7 @@ public class Hank extends ListenerAdapter {
 	
 	public static void main(String[] args) throws LoginException, InterruptedException
 	{
-		JDA jda = JDABuilder.createDefault("Nzk1MzE0NTQ4OTE0NzgyMjY5.X_HkZA.KJgpAqHgocRZRdoSFM1JP7ijQbU")
+		JDA jda = JDABuilder.createDefault("Token")
 				.addEventListeners(new Hank())
 				.addEventListeners(new messageHandler())
 				.addEventListeners(new categoryHandler())
